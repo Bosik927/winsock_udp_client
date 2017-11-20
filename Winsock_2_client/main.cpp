@@ -8,43 +8,45 @@
 int main() {
 
 	try {
-		WSASession Session;
+
+// START SESSION
+//  WSAData data
+		WSASession Session; 
+
+		//CREATE UDP SOCKET
+		//AND MESSAGE TO SEND
 		UDPSocket Socket;
-		Packet data = Packet::PacketBuilder()
-			.set_operation(0)
-			.set_response(0)
-			.set_ack(0)
-			.set_bad_client(0)
-			.set_bad_response(0)
-			.set_error(0)
-			.set_id(0)
-			.set_overflow(0)
-			.build();
+		pakiet data(0, 0, 0, 0); // REQUEST  ID 
 
-		char buffer[3];
+		char buffer[2];
 		std::string p = data.convertToSend();
-
+		//PORT 100
 		Socket.SendTo("127.0.0.1", 100, p.c_str(), p.size());
-		Socket.RecvFrom(buffer, 2);
 
-		Packet packet = Packet(buffer, 2);
+		sockaddr_in from; // SERVER ADRESS
+	//	in_addr serwer = "127.0.0.1";
+	//	from.sin_port = htons(100);
+	//	from.sin_addr = serwer;
 
-		std::cout << "Packet response contains fields: \n\t" << "operation - " << packet.getOperation() <<
-			"\n\t" << "response - " << packet.getResponse() <<
-			"\n\t" << "id - " << packet.getId() <<
-			"\n\t" << "ack - " << packet.getAck() <<
-			"\n\t" << "overflow - " << packet.getOverflow() <<
-			"\n\t" << "bad response - " << packet.getBadResponse() <<
-			"\n\t" << "bad client - " << packet.getBadClient() <<
-			std::endl;
 
+		//WAIT FOR ANSWER
+			/// Nie wiem czy mozna tak zrobic ze czekam na jedna odpowiedz
+			/// Powinnismy poczekac chwilke bo przeciez moze nie dojsc wiec?
+	//		Socket.RecvFrom(buffer, 2 , from, 0);
+	
+
+		
+		
+		pakiet rt(buffer, 2);
+		std::cout << rt.getOperation() << " " << rt.getResponse() << " " << rt.getId() << " " << rt.getAckFlag() << std::endl;
+		std::cin.ignore(2);
 	}
 	catch (std::exception& ex) {
 		std::cout << ex.what();
 	}
 
-	char c;
-	std::cin >> c;
+
 
 	return 0;
 }
+
