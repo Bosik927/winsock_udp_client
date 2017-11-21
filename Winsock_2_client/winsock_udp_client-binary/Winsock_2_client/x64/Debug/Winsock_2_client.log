@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\bosik\desktop\winsock_udp_client-binary\winsock_2_client\main.cpp(90): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\bosik\desktop\winsock_udp_client-binary\winsock_2_client\main.cpp(79): warning C4101: 'from': unreferenced local variable
+  Winsock_2_client.vcxproj -> C:\Users\Bosik\Desktop\winsock_udp_client-binary\x64\Debug\Winsock_2_client.exe
